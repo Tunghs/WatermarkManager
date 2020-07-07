@@ -6,7 +6,7 @@
         xmlns:Mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:View="clr-namespace:WatermarkManager.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="150" Width="600">
+        Title="MainWindow" Height="230" Width="800">
     
     <Grid>
         <View:WatermarkManagerView/>

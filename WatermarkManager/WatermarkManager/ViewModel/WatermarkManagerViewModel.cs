@@ -13,13 +13,27 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Microsoft.WindowsAPICodePack.Dialogs;
-
+using OpenCvSharp;
 
 namespace WatermarkManager.ViewModel
 {
     public class WatermarkManagerViewModel : ViewModelBase
     {
         #region UI Variable
+        private string _watermarkWhitePath = "";
+        public string WatermarkWhitePath
+        {
+            get { return _watermarkWhitePath; }
+            set { _watermarkWhitePath = value; RaisePropertyChanged("WatermarkWhitePath"); }
+        }
+
+        private string _watermarkBlackPath = "";
+        public string WatermarkBlackPath
+        {
+            get { return _watermarkBlackPath; }
+            set { _watermarkBlackPath = value; RaisePropertyChanged("WatermarkBlackPath"); }
+        }
+
         private string _fileDirPath = "";
         public string FileDirePath
         {
@@ -40,8 +54,14 @@ namespace WatermarkManager.ViewModel
         {
             switch (param.ToString())
             {
+                case "LoadWatermarkWhite":
+                    OpenDialog("LoadWatermarkWhite");
+                    break;
+                case "LoadWatermarkBlack":
+                    OpenDialog("LoadWatermarkBlack");
+                    break;
                 case "Load":
-                    OpenDialog();
+                    OpenDialog("Load");
                     break;
                 case "Run":
                     RunProcess();
@@ -49,7 +69,7 @@ namespace WatermarkManager.ViewModel
             }
         }
 
-        private void OpenDialog()
+        private void OpenDialog(string param)
         {
             using(CommonOpenFileDialog dialog = new CommonOpenFileDialog())
             {
@@ -59,7 +79,15 @@ namespace WatermarkManager.ViewModel
                 if(dialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
                     _InitPath = Path.GetDirectoryName(dialog.FileName);
-                    FileDirePath = dialog.FileName;
+
+                    if (param == "LoadWatermarkWhite")
+                        WatermarkWhitePath = dialog.FileName;
+
+                    if (param == "LoadWatermarkBlack")
+                        WatermarkBlackPath = dialog.FileName;
+
+                    if (param == "Load")
+                        FileDirePath = dialog.FileName;
                 }
             }  
         }
@@ -67,6 +95,7 @@ namespace WatermarkManager.ViewModel
 
         #region Field
         private string _InitPath = @"C:\Users\Desktop";
+        private List<string> _SupportExtensionList = new List<string>() { ".jpg", ".jpeg", ".png", ".bmp" };
         #endregion
 
         public WatermarkManagerViewModel()
@@ -76,9 +105,15 @@ namespace WatermarkManager.ViewModel
 
         private void RunProcess()
         {
-            var imageFilePathList = Directory.GetFiles(FileDirePath, "*.*", SearchOption.AllDirectories).ToList();
+            var imageFilePaths = Directory.GetFiles(FileDirePath, "*.*", SearchOption.TopDirectoryOnly).Where(s => _SupportExtensionList.Any(e => s.ToLower().EndsWith(e)));
 
-            foreach(var imageFilePath in imageFilePathList)
+
+            Mat watermarkWhiteImg = Cv2.ImRead(WatermarkWhitePath, ImreadModes.Unchanged);
+            Mat watermarkBlackImg = Cv2.ImRead(WatermarkBlackPath, ImreadModes.Unchanged);
+
+            int watermarkRatio = 10;
+
+            foreach(var imageFilePath in imageFilePaths)
             {
                 // 이미지 처리
                 // 이미지 정보
@@ -86,7 +121,7 @@ namespace WatermarkManager.ViewModel
             }
         }
 
-        private void 
+        
 
     }
 }
