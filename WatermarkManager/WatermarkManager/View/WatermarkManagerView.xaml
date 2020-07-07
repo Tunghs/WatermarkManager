@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="WatermarkManager.View.WatermarkManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ViewModel="clr-namespace:WatermarkManager.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="600">
+
+    <UserControl.DataContext>
+        <ViewModel:WatermarkManagerViewModel/>
+    </UserControl.DataContext>
+
+    <Grid Margin="5" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Height="35" Grid.Column="0" Text="{Binding FileDirePath, Mode=TwoWay}" IsReadOnly="True"/>
+            <Button Grid.Column="1" Content="..."
+                    Command="{Binding ButtonClickCommand}" CommandParameter="Load"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Button Height="30" Width="250" Content="Run"
+                    Command="{Binding ButtonClickCommand}" CommandParameter="Run"/>
+        </Grid>
+    </Grid>
+</UserControl>
