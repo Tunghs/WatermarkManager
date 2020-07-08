@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:View="clr-namespace:WatermarkManager.View"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="230" Width="800">
+        mc:Ignorable="d" MinHeight="580" MinWidth="1020" ShowTitleBar="False"
+        Title="MainWindow" Height="580" Width="1020">
     
     <Grid>
         <View:WatermarkManagerView/>

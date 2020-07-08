@@ -115,6 +115,8 @@ namespace WatermarkManager.ViewModel
 
             foreach(var imageFilePath in imageFilePaths)
             {
+                Mat img = Cv2.ImRead(imageFilePath, ImreadModes.Unchanged);
+                
                 // 이미지 처리
                 // 이미지 정보
                 // 히스토그램
