@@ -15,8 +15,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="1"/>
-            <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="320"/>
         </Grid.ColumnDefinitions>
 
@@ -27,24 +25,33 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="s" Width="50" Margin="0 0 5 0"/>
-                <Button Content="s" Width="50"/>
-            </StackPanel>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox />
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="s" Width="50" Margin="0 0 5 0"/>
+                    <Button Content="s" Width="50"/>
+                </StackPanel>
+            </Grid>
+
 
             <Grid Grid.Row="2" Background="Black">
 
             </Grid>
         </Grid>
-
-        <Rectangle Grid.Column="2" Stroke="White" StrokeThickness="0.2" />
-
-        <Grid Grid.Column="4">
-            <StackPanel Orientation="Vertical">
-                <Grid>
-                    <TextBlock Text="Option" Foreground="White"/>
-                </Grid>
-            </StackPanel>
+        
+        <Grid Grid.Column="2">
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Text="Option"/>
+                </GroupBox.Header>
+            </GroupBox>
         </Grid>
     </Grid>
 </UserControl>
